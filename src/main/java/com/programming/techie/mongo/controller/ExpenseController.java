@@ -17,13 +17,13 @@ public class ExpenseController {
     private final ExpenseService expenseService;
 
     @PostMapping
-    public ResponseEntity addExpense(@RequestBody Expense expense) {
+    public ResponseEntity<Void> addExpense(@RequestBody Expense expense) {
         expenseService.addExpense(expense);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping
-    public ResponseEntity updateExpense(@RequestBody Expense expense) {
+    public ResponseEntity<Void> updateExpense(@RequestBody Expense expense) {
         expenseService.updateExpense(expense);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -34,12 +34,12 @@ public class ExpenseController {
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity getExpenseByName(@PathVariable String name) {
+    public ResponseEntity<Expense> getExpenseByName(@PathVariable String name) {
         return ResponseEntity.ok(expenseService.getExpense(name));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteExpense(@PathVariable String id) {
+    public ResponseEntity<Void> deleteExpense(@PathVariable String id) {
         expenseService.deleteExpense(id);
         return ResponseEntity.noContent().build();
     }
